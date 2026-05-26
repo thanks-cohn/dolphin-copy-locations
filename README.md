@@ -134,6 +134,30 @@ Select multiple files -> press F9 -> paste
 
 You should get all selected file locations, one per line.
 
+## Make the patched Dolphin your default launcher version
+
+You can override the desktop launcher so KDE launches your patched Dolphin instead of the system Dolphin.
+
+```bash
+mkdir -p "$HOME/.local/share/applications"
+
+cp /usr/share/applications/org.kde.dolphin.desktop \
+"$HOME/.local/share/applications/"
+
+sed -i 's|^Exec=.*|Exec=/home/big-bro/dev/dolphin-f9/build/bin/dolphin %u|' \
+"$HOME/.local/share/applications/org.kde.dolphin.desktop"
+
+kbuildsycoca6
+```
+
+After this:
+
+- launcher Dolphin
+- taskbar Dolphin
+- KDE search Dolphin
+
+will all use your patched build.
+
 ## Scripts
 
 ### `scripts/build-patched-dolphin.sh`
