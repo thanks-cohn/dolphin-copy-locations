@@ -1,0 +1,47 @@
+diff --git a/src/dolphinmainwindow.cpp b/src/dolphinmainwindow.cpp
+--- a/src/dolphinmainwindow.cpp
++++ b/src/dolphinmainwindow.cpp
+@@ -2648,7 +2648,7 @@
+-        copyLocation->setEnabled(list.length() == 1);
++        copyLocation->setEnabled(!list.isEmpty());
+
+diff --git a/src/dolphincontextmenu.cpp b/src/dolphincontextmenu.cpp
+--- a/src/dolphincontextmenu.cpp
++++ b/src/dolphincontextmenu.cpp
+@@ -391,7 +391,7 @@
+-        copyPathAction->setEnabled(m_selectedItems.size() == 1);
++        copyPathAction->setEnabled(!m_selectedItems.isEmpty());
+
+diff --git a/src/views/dolphinview.cpp b/src/views/dolphinview.cpp
+--- a/src/views/dolphinview.cpp
++++ b/src/views/dolphinview.cpp
+@@ -2685,18 +2685,29 @@
+ void DolphinView::copyPathToClipboard()
+ {
+     const KFileItemList list = selectedItems();
+     if (list.isEmpty()) {
+         return;
+     }
+-    const KFileItem &item = list.at(0);
+-    QString path = item.localPath();
+-    if (path.isEmpty()) {
+-        path = item.url().toDisplayString();
++
++    QStringList paths;
++    paths.reserve(list.count());
++
++    for (const KFileItem &item : list) {
++        QString path = item.localPath();
++        if (path.isEmpty()) {
++            path = item.url().toDisplayString();
++        }
++        paths << QDir::toNativeSeparators(path);
+     }
++
+     QClipboard *clipboard = QApplication::clipboard();
+     if (clipboard == nullptr) {
+         return;
+     }
+-    clipboard->setText(QDir::toNativeSeparators(path));
++    clipboard->setText(paths.join(QStringLiteral("\\n")));
+ }
