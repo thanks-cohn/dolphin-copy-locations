@@ -12,6 +12,31 @@ Paste newline-separated absolute paths anywhere
 
 Before this patch, Dolphin's `Copy Location` action was effectively single-item oriented. It copied the location of the first/current selected file and disabled the context-menu action when multiple items were selected. This project removes that artificial limitation.
 
+## Important assumptions
+
+Right now, the helper scripts in this repository are designed primarily for:
+
+- Arch Linux
+- Garuda Linux
+- KDE Plasma
+- Dolphin
+
+The scripts also assume the following local layout:
+
+```text
+~/dev/dolphin-copy-locations
+~/dev/dolphin-f9
+```
+
+Where:
+
+- `dolphin-copy-locations` is this repository
+- `dolphin-f9` is the local cloned Dolphin source tree
+
+The scripts are intentionally simple and inspectable.
+
+If you use another distro or another directory layout, modify the scripts accordingly.
+
 ## What changes
 
 Before:
