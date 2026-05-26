@@ -1,3 +1,25 @@
+## IMPORTANT
+
+Normal Dolphin launched from your desktop/menu will NOT contain this feature.
+
+You must launch the patched Dolphin build manually:
+
+```bash
+~/dev/dolphin-f9/build/bin/dolphin
+```
+
+Without the patch:
+
+```text
+F9 / Copy Location -> only one file path copied
+```
+
+With the patch:
+
+```text
+F9 / Copy Location -> ALL selected file paths copied
+```
+
 # dolphin-copy-locations
 
 `dolphin-copy-locations` is a small source patch for KDE Dolphin that makes the native **Copy Location** action work with **multiple selected files**, not just one.
